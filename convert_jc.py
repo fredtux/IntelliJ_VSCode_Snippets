@@ -5,9 +5,26 @@ from xml.dom.minidom import parse, Document
 import json
 import re
 from sys import stderr, exit
+from abc import ABC, abstractmethod
 
+class Editor(ABC):
+    """ An abstract class for all the editors """
+    fpath = ""
+    document = ""
 
-class IntelliJXML:
+    @abstractmethod
+    def parse(self):
+        pass
+
+    @abstractmethod
+    def create(self):
+        pass
+
+    @abstractmethod
+    def write(self):
+        pass
+
+class IntelliJXML(Editor):
     """ A class to handle IntelliJ XML documents"""
     fpath = ""
     document = ""
@@ -29,10 +46,10 @@ class IntelliJXML:
 
     def create(self):
         group = self.fpath[:-4]
-        group = re.sub(r"(/.*/)", r"", group)
-        group = re.sub(r"(\\.*\\)", r"", group)
         group = re.sub(r"(.*/)", r"", group)
         group = re.sub(r"(.*\\)", r"", group)
+        group = re.sub(r"(/.*/)", r"", group)
+        group = re.sub(r"(\\.*\\)", r"", group)
 
         self.document = Document()
 
@@ -80,10 +97,14 @@ class IntelliJXML:
 
         option.setAttribute("name", context)
         option.setAttribute("value", "true")
+
+        # Append option to context
         ctx.appendChild(option)
 
+        # Append context to template
         template.appendChild(ctx)
 
+        # Append template to templateSet inside the XML document
         templateSet = self.document.getElementsByTagName("templateSet")[0]
         templateSet.appendChild(template)
 
@@ -96,19 +117,16 @@ class IntelliJXML:
         xmlFile.close()
 
 
-class VSCodeJSON:
+class VSCodeJSON(Editor):
     """ A class to handle VSCode JSON documents"""
-    fpath = ""
-    document = {}
-
     def __init__(self, path):
         self.fpath = path
+        self.document = {}
 
     def create(self):
         pass
 
     def add(self, name, body):
-        # self.document.append({name: {"prefix": name, "body": body}})
         self.document[name] = {"prefix": name, "body": body}
 
     def write(self):
