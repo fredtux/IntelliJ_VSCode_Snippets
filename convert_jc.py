@@ -7,6 +7,7 @@ import re
 from sys import stderr, exit
 from abc import ABC, abstractmethod
 
+
 class Editor(ABC):
     """ An abstract class for all the editors """
     fpath = ""
@@ -23,6 +24,7 @@ class Editor(ABC):
     @abstractmethod
     def write(self):
         pass
+
 
 class IntelliJXML(Editor):
     """ A class to handle IntelliJ XML documents"""
@@ -119,6 +121,7 @@ class IntelliJXML(Editor):
 
 class VSCodeJSON(Editor):
     """ A class to handle VSCode JSON documents"""
+
     def __init__(self, path):
         self.fpath = path
         self.document = {}
