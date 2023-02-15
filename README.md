@@ -27,3 +27,18 @@ OR
 ```bash
 python3 convert_jc.py -h
 ```
+___
+```bash
+usage: convert_jc [-h] -i INFILE -o OUTFILE [-c CONTEXT]
+
+IntelliJ XML <-> VSCode JSON converter
+
+options:
+  -h, --help            show this help message and exit
+  -i INFILE, --infile INFILE
+                        In file
+  -o OUTFILE, --outfile OUTFILE
+                        Out file
+  -c CONTEXT, --context CONTEXT
+                        Context (i.e.: PHP, Java etc.)
+```

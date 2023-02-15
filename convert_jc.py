@@ -139,7 +139,7 @@ class ArgParser(argparse.ArgumentParser):
         self.add_argument("-i", "--infile", help="In file", required=True)
         self.add_argument("-o", "--outfile", help="Out file", required=True)
         self.add_argument(
-            "-c", "--context", help="Context (i.e.: PHP, Java etc.)")
+            "-c", "--context", help="Context (i.e.: PHP, JAVA_SCRIPT etc.)")
 
         args = self.parse_args()
 
